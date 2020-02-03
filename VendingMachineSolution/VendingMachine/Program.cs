@@ -22,6 +22,27 @@ namespace VendingMachine
             Console.WriteLine("Please enter money");
             decimal userAmount = decimal.Parse(Console.ReadLine());
             Console.WriteLine("Entered amount " + userAmount);
+            Console.WriteLine("Please enter product key");
+            string selectedProduct = Console.ReadLine();
+
+            foreach(string[] product in vendingMachineStationQ7)
+            {
+                if(product[3] == selectedProduct)
+                {
+                    if (decimal.Parse(product[1]) > userAmount)
+                    {
+                        Console.WriteLine("Not enough money for the selected product");
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("The transaction is successful. Money left: " + (userAmount - decimal.Parse(product[1])));
+
+                    }
+                }
+            }
+            Console.Read();
+
         }
     }
 }
