@@ -1,0 +1,6 @@
+E:\Git Sessions\Session #14\Mob All Vending Machine\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe.config
+E:\Git Sessions\Session #14\Mob All Vending Machine\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe
+E:\Git Sessions\Session #14\Mob All Vending Machine\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.pdb
+E:\Git Sessions\Session #14\Mob All Vending Machine\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
+E:\Git Sessions\Session #14\Mob All Vending Machine\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
+E:\Git Sessions\Session #14\Mob All Vending Machine\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
