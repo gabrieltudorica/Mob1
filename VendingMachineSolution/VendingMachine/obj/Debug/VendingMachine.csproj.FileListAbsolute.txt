@@ -10,3 +10,9 @@ D:\Programming\Session14\Mob\Mob1\VendingMachineSolution\VendingMachine\bin\Debu
 D:\Programming\Session14\Mob\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
 D:\Programming\Session14\Mob\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
 D:\Programming\Session14\Mob\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
+E:\git\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe.config
+E:\git\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe
+E:\git\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.pdb
+E:\git\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
+E:\git\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
+E:\git\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
