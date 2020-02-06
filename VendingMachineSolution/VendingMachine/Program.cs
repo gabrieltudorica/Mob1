@@ -26,9 +26,16 @@ namespace VendingMachine
                                
                 userAmount += input;
                 Console.WriteLine("Entered amount " + userAmount);
-
                 Console.WriteLine("Please enter product key");
                 string selectedProductKey = Console.ReadLine();
+
+                if (!IsProductKeyValid(selectedProductKey))
+                {
+                    Console.WriteLine("Change given " + userAmount);
+                    userAmount = 0;
+                    continue;
+                }
+               
                 string[] selectedProduct = GetProductById(selectedProductKey);
 
                 if (!IsAmountEnoughForProduct(selectedProduct[1]))
@@ -67,6 +74,19 @@ namespace VendingMachine
                 Console.WriteLine(product[3] + " " + product[0] + " " + product[1] + " LEI");
             }
         }
+
+        private static bool IsProductKeyValid(string selectedKey)
+        {
+            foreach (string[] product in inventory)
+            {
+                if (selectedKey == product[3])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
          private static string[] GetProductById(string selectedProduct)
         {
             foreach (string[] product in inventory)
@@ -76,6 +96,7 @@ namespace VendingMachine
                     return product;
                 }
             }
+
             return null;
         }
 
