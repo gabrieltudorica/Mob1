@@ -25,11 +25,12 @@ namespace VendingMachine
             Console.WriteLine("Entered amount " + userAmount);
             Console.WriteLine("Please enter product key");
             string selectedProductKey = Console.ReadLine();
-            // decimal userChange=
 
             string[] selectedProduct = GetProductById(selectedProductKey, vendingMachineStationQ7);
 
-            if (decimal.Parse(selectedProduct[1]) > userAmount)
+            bool isAmountEnough = IsEnoughMoney(selectedProduct[1], userAmount);
+
+            if (!isAmountEnough)
             {
                 Console.WriteLine("Not enough money for the selected product");
             }
@@ -56,5 +57,16 @@ namespace VendingMachine
             }
             return null;
         }
+
+        private static bool IsEnoughMoney(string selectedProduct, decimal userAmount)
+        {
+            if (decimal.Parse(selectedProduct) > userAmount)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
     }
 }

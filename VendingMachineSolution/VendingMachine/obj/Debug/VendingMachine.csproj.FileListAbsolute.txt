@@ -16,3 +16,9 @@ E:\git\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.pdb
 E:\git\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
 E:\git\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
 E:\git\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
+C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe.config
+C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe
+C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.pdb
+C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
+C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
+C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
