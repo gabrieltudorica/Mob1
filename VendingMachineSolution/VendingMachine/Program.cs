@@ -9,42 +9,65 @@ namespace VendingMachine
     class Program
     {
         static decimal userAmount;
-
+        static string[][] inventory = new string[3][];
         static void Main(string[] args)
+        {
+            InitializeInventory();
+            while (true)
+            {
+                Console.WriteLine("Please enter money or cancel the transaction");
+                decimal input;
+                if (!decimal.TryParse(Console.ReadLine(), out input))
+                {
+                    Console.WriteLine("Change given " + userAmount);
+                    userAmount = 0;
+                    continue;
+                }
+                               
+                userAmount += input;
+                Console.WriteLine("Entered amount " + userAmount);
+
+                Console.WriteLine("Please enter product key");
+                string selectedProductKey = Console.ReadLine();
+                string[] selectedProduct = GetProductById(selectedProductKey);
+
+                if (!IsAmountEnoughForProduct(selectedProduct[1]))
+                {
+                    Console.WriteLine("Not enough money for the selected product");
+                    //Console.WriteLine("Type BUY to buy another program or CHANGE to receive the change");
+
+                    continue; 
+                }
+
+                userAmount -= decimal.Parse(selectedProduct[1]);
+                Console.WriteLine("The transaction is successful. Money left: " + userAmount);
+                int productStock = Convert.ToInt32(selectedProduct[2]) - 1;
+                selectedProduct[2] = productStock.ToString();
+                Console.Read();
+            }
+            
+        }
+
+        private static void InitializeInventory ()
         {
             string[] pepsi = { "pepsi", "5", "10", "11" };
             string[] cola = { "coca-cola", "5", "9", "12" };
             string[] sicola = { "sicola", "2.5", "5", "13" };
-            string[][] vendingMachineStationQ7 = { pepsi, cola, sicola };
-            foreach (string[] product in vendingMachineStationQ7)
+
+            inventory[0] = pepsi;
+            inventory[1] = cola;
+            inventory[2] = sicola;
+
+            DisplayInventory();
+        }
+        private static void DisplayInventory ()
+        {
+            foreach (string[] product in inventory)
             {
                 Console.WriteLine(product[3] + " " + product[0] + " " + product[1] + " LEI");
             }
-
-            Console.WriteLine("Please enter money");
-            userAmount = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("Entered amount " + userAmount);
-            Console.WriteLine("Please enter product key");
-            string selectedProductKey = Console.ReadLine();
-
-            string[] selectedProduct = GetProductById(selectedProductKey, vendingMachineStationQ7);
-
-            if (!IsAmountEnoughForProduct(selectedProduct[1]))
-            {
-                Console.WriteLine("Not enough money for the selected product");
-
-                return;
-            }
-           
-            userAmount -= decimal.Parse(selectedProduct[1]);
-            Console.WriteLine("The transaction is successful. Money left: " + userAmount);
-            int productStock = Convert.ToInt32(selectedProduct[2]) - 1;
-            selectedProduct[2] = productStock.ToString();
-
-            Console.Read();
         }
-
-         private static string[] GetProductById(string selectedProduct, string [][]inventory)
+         private static string[] GetProductById(string selectedProduct)
         {
             foreach (string[] product in inventory)
             {
