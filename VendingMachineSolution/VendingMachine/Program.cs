@@ -8,6 +8,7 @@ namespace VendingMachine
 {
     class Program
     {
+        static decimal userAmount;
 
         static void Main(string[] args)
         {
@@ -21,31 +22,28 @@ namespace VendingMachine
             }
 
             Console.WriteLine("Please enter money");
-            decimal userAmount = decimal.Parse(Console.ReadLine());
+            userAmount = decimal.Parse(Console.ReadLine());
             Console.WriteLine("Entered amount " + userAmount);
             Console.WriteLine("Please enter product key");
             string selectedProductKey = Console.ReadLine();
 
             string[] selectedProduct = GetProductById(selectedProductKey, vendingMachineStationQ7);
 
-            bool isAmountEnough = IsEnoughMoney(selectedProduct[1], userAmount);
-
-            if (!isAmountEnough)
+            if (!IsAmountEnoughForProduct(selectedProduct[1]))
             {
                 Console.WriteLine("Not enough money for the selected product");
-            }
-            else
-            {
-                userAmount -= decimal.Parse(selectedProduct[1]);
-                Console.WriteLine("The transaction is successful. Money left: " + userAmount);
-                int productStock = Convert.ToInt32(selectedProduct[2]) - 1;
-                selectedProduct[2] = productStock.ToString();
-            }
 
+                return;
+            }
+           
+            userAmount -= decimal.Parse(selectedProduct[1]);
+            Console.WriteLine("The transaction is successful. Money left: " + userAmount);
+            int productStock = Convert.ToInt32(selectedProduct[2]) - 1;
+            selectedProduct[2] = productStock.ToString();
 
             Console.Read();
-
         }
+
          private static string[] GetProductById(string selectedProduct, string [][]inventory)
         {
             foreach (string[] product in inventory)
@@ -58,14 +56,14 @@ namespace VendingMachine
             return null;
         }
 
-        private static bool IsEnoughMoney(string selectedProduct, decimal userAmount)
+        private static bool IsAmountEnoughForProduct(string productPrice)
         {
-            if (decimal.Parse(selectedProduct) > userAmount)
+            if (decimal.Parse(productPrice) > userAmount)
             {
                 return false;
             }
-            return true;
 
+            return true;
         }
 
     }

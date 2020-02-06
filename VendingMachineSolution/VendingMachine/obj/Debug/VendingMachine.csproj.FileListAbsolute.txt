@@ -22,3 +22,9 @@ C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMach
 C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
 C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
 C:\Users\anamaria.totan\Documents\_Sessions\Session 14 Hands On\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
+D:\mob\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe.config
+D:\mob\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.exe
+D:\mob\Mob1\VendingMachineSolution\VendingMachine\bin\Debug\VendingMachine.pdb
+D:\mob\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.csprojAssemblyReference.cache
+D:\mob\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.exe
+D:\mob\Mob1\VendingMachineSolution\VendingMachine\obj\Debug\VendingMachine.pdb
