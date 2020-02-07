@@ -23,7 +23,7 @@ namespace VendingMachine
                     userAmount = 0;
                     continue;
                 }
-                               
+
                 userAmount += input;
                 Console.WriteLine("Entered amount " + userAmount);
                 Console.WriteLine("Please enter product key");
@@ -35,7 +35,7 @@ namespace VendingMachine
                     userAmount = 0;
                     continue;
                 }
-               
+
                 string[] selectedProduct = GetProductById(selectedProductKey);
 
                 if (!IsAmountEnoughForProduct(selectedProduct[1]))
@@ -43,17 +43,26 @@ namespace VendingMachine
                     Console.WriteLine("Not enough money for the selected product");
                     //Console.WriteLine("Type BUY to buy another program or CHANGE to receive the change");
 
-                    continue; 
+                    continue;
                 }
 
-                userAmount -= decimal.Parse(selectedProduct[1]);
-                Console.WriteLine("The transaction is successful. Money left: " + userAmount);
-                int productStock = Convert.ToInt32(selectedProduct[2]) - 1;
-                selectedProduct[2] = productStock.ToString();
-                Console.Read();
+                PurchaseProduct(selectedProduct[1], selectedProductKey);
+                Console.WriteLine("Please choose product or cancel the transaction");
+
+                selectedProductKey = Console.ReadLine();
+
+                if (!IsProductKeyValid(selectedProductKey))
+                {
+                    Console.WriteLine("Change given " + userAmount);
+                    userAmount = 0;
+                    continue;
+                }
+               
+                PurchaseProduct(selectedProduct[1], selectedProductKey);
             }
             
         }
+
 
         private static void InitializeInventory ()
         {
@@ -108,6 +117,16 @@ namespace VendingMachine
             }
 
             return true;
+        }
+
+        private static void PurchaseProduct(string productPrice, string productKey)
+        {
+            userAmount -= decimal.Parse(productPrice);
+
+            string[] selectedProduct = GetProductById(productKey);
+            int updatedStock = Convert.ToInt32(selectedProduct[2]) - 1;
+            selectedProduct[2] = updatedStock.ToString();
+            Console.WriteLine("The transaction is successful. Money left: " + userAmount);
         }
 
     }
