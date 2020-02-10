@@ -32,6 +32,12 @@ namespace VendingMachine
 
                 string[] selectedProduct = GetProductById(selectedProductKey);
 
+                if (selectedProduct[2] == "0")
+                {
+                    Console.WriteLine("The selected product is out of stock");
+                    continue;
+                }
+
                 if (!IsAmountEnoughForProduct(selectedProduct[1]))
                 {
                     Console.WriteLine("Not enough money for the selected product");
@@ -50,7 +56,7 @@ namespace VendingMachine
 
         private static void InitializeInventory ()
         {
-            string[] pepsi = { "pepsi", "5", "10", "11" };
+            string[] pepsi = { "pepsi", "5", "0", "11" };
             string[] cola = { "coca-cola", "5", "9", "12" };
             string[] sicola = { "sicola", "2.5", "5", "13" };
 
