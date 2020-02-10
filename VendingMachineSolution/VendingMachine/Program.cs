@@ -41,7 +41,7 @@ namespace VendingMachine
                     continue;
                 }
 
-                PurchaseProduct(selectedProduct[1], selectedProductKey);
+                PurchaseProduct(selectedProductKey);
 
             }
             
@@ -122,11 +122,11 @@ namespace VendingMachine
             return true;
         }
 
-        private static void PurchaseProduct(string productPrice, string productKey)
+        private static void PurchaseProduct(string productKey)
         {
-            userAmount -= decimal.Parse(productPrice);
-
             string[] selectedProduct = GetProductById(productKey);
+            userAmount -= decimal.Parse(selectedProduct[1]);
+                        
             int updatedStock = Convert.ToInt32(selectedProduct[2]) - 1;
             selectedProduct[2] = updatedStock.ToString();
             Console.WriteLine("The transaction is successful. Money left: " + userAmount);
