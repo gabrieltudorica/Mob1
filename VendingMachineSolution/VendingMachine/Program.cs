@@ -18,16 +18,7 @@ namespace VendingMachine
                 if (userAmount == 0)
                 {
                     Console.WriteLine("Please enter money!");
-                    decimal input;
-                    if (!decimal.TryParse(Console.ReadLine(), out input))
-                    {
-                        Console.WriteLine("Change given " + userAmount);
-                        userAmount = 0;
-                        continue;
-                    }
-
-                    userAmount += input;
-                    Console.WriteLine("Entered amount " + userAmount);
+                    ReceiveMoney();
                 }
 
                 Console.WriteLine("Please enter product key or cancel the transaction");
@@ -46,16 +37,7 @@ namespace VendingMachine
                 {
                     Console.WriteLine("Not enough money for the selected product");
                     Console.WriteLine("Please enter money or cancel the transaction");
-                    decimal input;
-                    if (!decimal.TryParse(Console.ReadLine(), out input))
-                    {
-                        Console.WriteLine("Change given " + userAmount);
-                        userAmount = 0;
-                        continue;
-                    }
-
-                    userAmount += input;
-                    Console.WriteLine("Entered amount " + userAmount);
+                    ReceiveMoney();
 
                     continue;
                 }
@@ -85,6 +67,20 @@ namespace VendingMachine
             {
                 Console.WriteLine(product[3] + " " + product[0] + " " + product[1] + " LEI");
             }
+        }
+
+        private static void ReceiveMoney()
+        {
+            decimal input;
+            if (!decimal.TryParse(Console.ReadLine(), out input))
+            {
+                Console.WriteLine("Change given " + userAmount);
+                userAmount = 0;
+                return;
+            }
+
+            userAmount += input;
+            Console.WriteLine("Entered amount " + userAmount);
         }
 
         private static bool IsProductKeyValid(string selectedKey)
