@@ -26,8 +26,7 @@ namespace VendingMachine
 
                 if (!IsProductKeyValid(selectedProductKey))
                 {
-                    Console.WriteLine("Change given " + userAmount);
-                    userAmount = 0;
+                    GiveChange();
                     continue;
                 }
 
@@ -74,13 +73,18 @@ namespace VendingMachine
             decimal input;
             if (!decimal.TryParse(Console.ReadLine(), out input))
             {
-                Console.WriteLine("Change given " + userAmount);
-                userAmount = 0;
+                GiveChange();
                 return;
             }
 
             userAmount += input;
             Console.WriteLine("Entered amount " + userAmount);
+        }
+
+        private static void GiveChange()
+        {
+            Console.WriteLine("Change given " + userAmount);
+            userAmount = 0;
         }
 
         private static bool IsProductKeyValid(string selectedKey)
