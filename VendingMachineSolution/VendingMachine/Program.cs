@@ -15,17 +15,24 @@ namespace VendingMachine
             InitializeInventory();
             while (true)
             {
-                Console.WriteLine("Please enter money or cancel the transaction");
-                decimal input;
-                if (!decimal.TryParse(Console.ReadLine(), out input))
+                if (userAmount == 0)
                 {
-                    Console.WriteLine("Change given " + userAmount);
-                    userAmount = 0;
-                    continue;
+                    Console.WriteLine("Please enter money!");
+                    decimal input;
+                    if (!decimal.TryParse(Console.ReadLine(), out input))
+                    {
+                        Console.WriteLine("Change given " + userAmount);
+                        userAmount = 0;
+                        continue;
+                    }
+
+                    userAmount += input;
+                    Console.WriteLine("Entered amount " + userAmount);
                 }
 
-                userAmount += input;
-                Console.WriteLine("Entered amount " + userAmount);
+                Console.WriteLine("Please choose product or cancel the transaction");
+
+                
                 Console.WriteLine("Please enter product key");
                 string selectedProductKey = Console.ReadLine();
 
@@ -41,24 +48,12 @@ namespace VendingMachine
                 if (!IsAmountEnoughForProduct(selectedProduct[1]))
                 {
                     Console.WriteLine("Not enough money for the selected product");
-                    //Console.WriteLine("Type BUY to buy another program or CHANGE to receive the change");
 
                     continue;
                 }
 
                 PurchaseProduct(selectedProduct[1], selectedProductKey);
-                Console.WriteLine("Please choose product or cancel the transaction");
 
-                selectedProductKey = Console.ReadLine();
-
-                if (!IsProductKeyValid(selectedProductKey))
-                {
-                    Console.WriteLine("Change given " + userAmount);
-                    userAmount = 0;
-                    continue;
-                }
-               
-                PurchaseProduct(selectedProduct[1], selectedProductKey);
             }
             
         }
