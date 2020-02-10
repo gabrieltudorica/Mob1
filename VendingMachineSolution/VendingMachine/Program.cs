@@ -30,10 +30,7 @@ namespace VendingMachine
                     Console.WriteLine("Entered amount " + userAmount);
                 }
 
-                Console.WriteLine("Please choose product or cancel the transaction");
-
-                
-                Console.WriteLine("Please enter product key");
+                Console.WriteLine("Please enter product key or cancel the transaction");
                 string selectedProductKey = Console.ReadLine();
 
                 if (!IsProductKeyValid(selectedProductKey))
@@ -48,6 +45,17 @@ namespace VendingMachine
                 if (!IsAmountEnoughForProduct(selectedProduct[1]))
                 {
                     Console.WriteLine("Not enough money for the selected product");
+                    Console.WriteLine("Please enter money or cancel the transaction");
+                    decimal input;
+                    if (!decimal.TryParse(Console.ReadLine(), out input))
+                    {
+                        Console.WriteLine("Change given " + userAmount);
+                        userAmount = 0;
+                        continue;
+                    }
+
+                    userAmount += input;
+                    Console.WriteLine("Entered amount " + userAmount);
 
                     continue;
                 }
