@@ -1,0 +1,4 @@
+Example: pepsi,5,0,11 = name, price, stock, product key
+pepsi,5,0,11
+coca-cola,5,9,12
+sicola,2.5,5,13
