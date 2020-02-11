@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace VendingMachine
     class Program
     {
         static decimal userAmount;
-        static string[][] inventory = new string[3][];
+        static string[][] inventory = new string[48][];
         static void Main(string[] args)
         {
             InitializeInventory();
@@ -46,23 +47,17 @@ namespace VendingMachine
 
                     continue;
                 }
-
                 PurchaseProduct(selectedProductKey);
-
             }
-            
         }
-
-
         private static void InitializeInventory ()
         {
-            string[] pepsi = { "pepsi", "5", "0", "11" };
-            string[] cola = { "coca-cola", "5", "9", "12" };
-            string[] sicola = { "sicola", "2.5", "5", "13" };
-
-            inventory[0] = pepsi;
-            inventory[1] = cola;
-            inventory[2] = sicola;
+            string path = "inventory.txt";
+            string[] readInventory = File.ReadAllLines(path);
+            for(int i = 1; i < readInventory.Length; i++)
+            {
+                inventory[i-1] = readInventory[i].Split(',');
+            }
 
             DisplayInventory();
         }
@@ -70,7 +65,10 @@ namespace VendingMachine
         {
             foreach (string[] product in inventory)
             {
-                Console.WriteLine(product[3] + " " + product[0] + " " + product[1] + " LEI");
+                if(product != null)
+                {
+                   Console.WriteLine(product[3] + " " + product[0] + " " + product[1] + " LEI");
+                }
             }
         }
 
@@ -97,7 +95,7 @@ namespace VendingMachine
         {
             foreach (string[] product in inventory)
             {
-                if (selectedKey == product[3])
+                if (product != null && selectedKey == product[3])
                 {
                     return true;
                 }
