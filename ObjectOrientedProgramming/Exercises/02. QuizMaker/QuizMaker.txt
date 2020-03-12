@@ -1,0 +1,37 @@
+Quiz Maker
+	- Windows Forms
+	- Select questions domain
+	- Create a set of questions per domain
+	- Show questions randomly
+	- Select answer
+	- Check that the answer is correct
+	- Get points for correct answer
+	- Timer per question
+	- Get bonus points based on response time
+	- Have a number of lives (in case user provides wrong answer)
+	- Single player
+	- Leaderboard
+	- Difficulties
+	
+Steps:
+	1. Create question domains
+	2. Create encrypted questions for each domain, for each difficulty
+	3. Set answer for each question. 
+	4. Add multiple choices (1 correct answer). Show the same multiple choices every time. 
+	5. Randomize answer position
+	6. Enter player name
+	7. Choose domain
+	8. Choose difficulty
+	9. Start game	
+	10. Show question with potential answers
+	11. Start timer
+	12. User selects answer
+	13. Stop timer
+	15. Check if answer is correct
+	16. If answer is wrong, loose a life
+	14. If answer is correct, calculate points for user based on how fast he/she responded and difficulty
+	15. Show next question until user looses all lives or answered 100 questions
+	16. Save score to leaderboard
+	17. Show leaderboard
+	
+		

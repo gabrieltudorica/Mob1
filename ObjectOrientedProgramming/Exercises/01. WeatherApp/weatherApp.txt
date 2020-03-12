@@ -1,0 +1,13 @@
+Weather App
+	- Windows Forms
+	- get data from somewhere			
+		- weather: sunny, rain, windy
+			- with images
+		- temperature
+		- humidity
+		- pressure
+		- visibility
+		- chances of rain
+	- realtime data only, no forecasts
+	- date time
+	- location
