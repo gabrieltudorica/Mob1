@@ -1,0 +1,86 @@
+I have multiple social media accounts and I want a tool to post once to both Facebook and LinkedIn. 
+
+The posts are simple, will have only a title and a text. I want to be able to save my posts (as drafts) before publishing them online as it takes me several hours to create them and I may not finish them in time so I want to be able to resume the next day in case I could not finish it today.
+
+I want to be able to sort the posts by comments and likes and also to be able to reply to some comments on both platforms.
+
+Currently I use only Facebook and LinkedIn, but I want to also include Twitter in the future. Not to be done in the current version, but I wanted to share my future intents.
+
+ISocialMediaConnector
+	private bool Login(string username, string password)
+	public string Publish(string title, string textBody)		
+	public string GetLinkFor(string postId)
+	public int GetNumberOfLikesFor(string postId)
+	public int GetNumberOfCommentsFor(string postId)	
+
+FacebookConnector : ISocialMediaConnector
+	private bool Login(string username, string password)
+	public string Publish(string title, string textBody)	
+	
+	public string GetLinkFor(string postId)
+	public int GetNumberOfLikesFor(string postId)
+	public int GetNumberOfCommentsFor(string postId)	
+	
+LinkedInConnector : ISocialMediaConnector
+	Login(string username, string password)
+	Publish(string title, string textBody)
+	
+	public string GetLinkFor(string postId)
+	public int GetNumberOfLikesFor(string postId)
+	public int GetNumberOfCommentsFor(string postId)	
+	
+Post
+	private string InternalID {get; set;};
+	private int linkedInId;
+	private int facebookId;
+	
+	private ISocialMediaConnector linkedInConnector;
+	private ISocialMediaConnector facebookConnector;
+	
+	public string Title {get; set;}
+	public string Body {get; set;}	
+	
+	ctor(ISocialMediaConnector linkedInConnector, ISocialMediaConnector facebookConnector)
+	{
+		this.linkedInConnector = linkedInConnector;
+		this.facebookConnector = facebookConnector;
+		IsPublished = false;
+	}
+	
+	
+	public void SaveDraft()
+	private int GetNextInternalNumber()
+	
+	public bool Publish()		
+	{		
+		SaveDraft();
+		linkedInId = linkedInConnector.Publish(Header, Body);
+		facebookId = facebookConnector.Publish(Header, Body);
+		IsPublished = true;
+	}
+	
+	public bool IsPublished {get; private set;}	
+	
+
+ISocialMediaConnector linkedInConnector = new LinkedInConnector();
+ISocialMediaConnector facebookConnector = new FacebookConnector();
+
+Post post = new Post(linkedInConnector, facebookConnector);
+post.Title = "Titlu";
+post.Body = "Ana are mere!";
+post.SaveDraft();
+post.Publish();
+
+FacebookPost facebookPost = new FacebookPost();
+facebookPost.SaveDraft();
+facebookPost.Publish()
+
+LinkedInPost linkedInPost = new LinkedInPost();
+linkedInPost.SaveDraft();
+linkedInPost.Publish();
+	
+	
+	
+	
+	
+	
