@@ -1,0 +1,27 @@
+Let users add what they need as a gift list regardless of occasion (xmas, birthday etc.).
+List can be shared with friends, which also have a gift list.
+The list is visible only with the friends the user shared it to.
+Anyone who can see the list can pick an item from the list. Once picked, the item will not be available for others to avoid gift duplication.
+The one to receive the gift, will not know what items have been picked and will make sure to remove the gifts once he/she got them and add others.
+
+Wishlist
+	public string Owner {get; private set;}
+	
+	public AddItem()
+	public RemoveItem()
+	public PickItem()
+	public ShowAllItems()
+	public ShowRemainingItems()
+	public ShareWith(List<string> friendEmails)
+	public bool IsSharedWith()
+	
+OwnerPart
+	AddItem
+	RemoveItem
+	ShowAllItems
+	ShareWith
+	
+FriendsPart
+	ShowRemiaingItems
+	PickItem
+	
