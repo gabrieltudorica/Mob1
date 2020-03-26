@@ -10,138 +10,76 @@ namespace VendingMachine
 {
     class Program
     {
-        static decimal userAmount;
-        static string[][] inventory = new string[48][];
+        private static List<Product> inventory;
+
+        //static decimal userAmount;
+       // static string[][] inventory = new string[48][];
         static void Main(string[] args)
         {
-            InitializeInventory();
-            while (true)
-            {
-                if (userAmount == 0)
-                {
-                    Console.WriteLine("Please enter money!");
-                    ReceiveMoney();
-                }
+            ISMSGateway gateway = new OrangeSMSGateway();
+            VendingMachine vendingMachine = new VendingMachine(gateway);
 
-                Console.WriteLine("Please enter product key or cancel the transaction");
-                string selectedProductKey = Console.ReadLine();
-
-                if (!IsProductKeyValid(selectedProductKey))
-                {
-                    GiveChange();
-                    continue;
-                }
-
-                string[] selectedProduct = GetProductById(selectedProductKey);
-
-                if (selectedProduct[2] == "0")
-                {
-                    Console.WriteLine("The selected product is out of stock");
-                    continue;
-                }
-
-                if (!IsAmountEnoughForProduct(selectedProduct[1]))
-                {
-                    Console.WriteLine("Not enough money for the selected product");
-                    Console.WriteLine("Please enter money or cancel the transaction");
-                    ReceiveMoney();
-
-                    continue;
-                }
-                PurchaseProduct(selectedProductKey);
-            }
-        }
-        private static void InitializeInventory ()
-        {
-            string path = "inventory.txt";
-            string[] readInventory = File.ReadAllLines(path);
-            for(int i = 1; i < readInventory.Length; i++)
-            {
-                inventory[i-1] = readInventory[i].Split(',');
-            }
-
+            inventory = vendingMachine.GetProducts();
             DisplayInventory();
+
+            Console.WriteLine("Please enter money!");
+            vendingMachine.AddMoney(Convert.ToDecimal(Console.ReadLine()));
+            Console.WriteLine("Entered amount " + vendingMachine.UserAmount);
+
+            Console.WriteLine("Please enter product key or cancel the transaction");
+            string purchaseOutput = vendingMachine.PurchaseProduct(Console.ReadLine());
+
+            Console.WriteLine(purchaseOutput);
+
+            decimal change = vendingMachine.GiveChange();
+            Console.WriteLine("Your change is: " + change);
+            Console.Read();
+
+            /*  while (true)
+              {
+                  if (userAmount == 0)
+                  {
+                      Console.WriteLine("Please enter money!");
+                      ReceiveMoney();
+                      Console.WriteLine("Entered amount " + userAmount);
+                  }
+
+                  Console.WriteLine("Please enter product key or cancel the transaction");
+                  string selectedProductKey = Console.ReadLine();
+
+                  if (!IsProductKeyValid(selectedProductKey))
+                  {
+                      GiveChange();
+                      continue;
+                  }
+
+                  Product selectedProduct = GetProductById(selectedProductKey);
+
+                  if (selectedProduct.Stock == 0)
+                  {
+                      Console.WriteLine("The selected product is out of stock");
+                      continue;
+                  }
+
+                  if (!IsAmountEnoughForProduct(selectedProduct.Price))
+                  {
+                      Console.WriteLine("Not enough money for the selected product");
+                      Console.WriteLine("Please enter money or cancel the transaction");
+                      ReceiveMoney();
+
+                      continue;
+                  }
+                  PurchaseProduct(selectedProductKey);
+              }*/
         }
         private static void DisplayInventory ()
         {
-            foreach (string[] product in inventory)
-            {
-                if(product != null)
-                {
-                   Console.WriteLine(product[3] + " " + product[0] + " " + product[1] + " LEI");
-                }
+            foreach (Product product in inventory)
+            {                
+                   Console.WriteLine(product.Key + " " + product.Name + " " + product.Price + " LEI");
+                
             }
         }
-
-        private static void ReceiveMoney()
-        {
-            decimal input;
-            if (!decimal.TryParse(Console.ReadLine(), out input))
-            {
-                GiveChange();
-                return;
-            }
-
-            userAmount += input;
-            Console.WriteLine("Entered amount " + userAmount);
-        }
-
-        private static void GiveChange()
-        {
-            Console.WriteLine("Change given " + userAmount);
-            userAmount = 0;
-        }
-
-        private static bool IsProductKeyValid(string selectedKey)
-        {
-            foreach (string[] product in inventory)
-            {
-                if (product != null && selectedKey == product[3])
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-         private static string[] GetProductById(string selectedProduct)
-        {
-            foreach (string[] product in inventory)
-            {
-                if (product[3] == selectedProduct)
-                {
-                    return product;
-                }
-            }
-
-            return null;
-        }
-
-        private static bool IsAmountEnoughForProduct(string productPrice)
-        {
-            if (decimal.Parse(productPrice) > userAmount)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static void PurchaseProduct(string productKey)
-        {
-            string[] selectedProduct = GetProductById(productKey);
-            userAmount -= decimal.Parse(selectedProduct[1]);
-                        
-            int updatedStock = Convert.ToInt32(selectedProduct[2]) - 1;
-            selectedProduct[2] = updatedStock.ToString();
-            Console.WriteLine("The transaction is successful. Money left: " + userAmount);
-
-            if (updatedStock == 0)
-            {
-                SendSMS("You are out of " + selectedProduct[0]);
-            }
-        }
-
         private static void SendSMS(string message)
         {
             string parameter = string.Format("/C \"C:\\Users\\ana\\Downloads\\curl-7.68.0-win64-mingw\\curl-7.68.0-win64-mingw\\bin\\curl --request POST --header \"X-Authorization: {0}\" \"https://app.smso.ro/api/v1/send\" -d \"sender=4\" -d \"to={1}\" -d \"body={2}\"\"",

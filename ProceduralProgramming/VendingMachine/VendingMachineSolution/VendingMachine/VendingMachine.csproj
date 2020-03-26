@@ -43,8 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISMSGateway.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="OrangeSMSGateway.cs" />
+    <Compile Include="VendingMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
