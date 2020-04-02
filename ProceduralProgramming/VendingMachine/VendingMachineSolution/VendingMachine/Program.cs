@@ -1,21 +1,16 @@
-﻿using System;
+﻿using Bla;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VendingMachine
+namespace VendingMachineConsoleApp
 {
     class Program
     {
-        private static List<Product> inventory;
-
-        //static decimal userAmount;
-       // static string[][] inventory = new string[48][];
+        private static List<Product> inventory;        
+        
         static void Main(string[] args)
-        {
+        {            
             ISMSGateway gateway = new OrangeSMSGateway();
             VendingMachine vendingMachine = new VendingMachine(gateway);
 
@@ -33,44 +28,7 @@ namespace VendingMachine
 
             decimal change = vendingMachine.GiveChange();
             Console.WriteLine("Your change is: " + change);
-            Console.Read();
-
-            /*  while (true)
-              {
-                  if (userAmount == 0)
-                  {
-                      Console.WriteLine("Please enter money!");
-                      ReceiveMoney();
-                      Console.WriteLine("Entered amount " + userAmount);
-                  }
-
-                  Console.WriteLine("Please enter product key or cancel the transaction");
-                  string selectedProductKey = Console.ReadLine();
-
-                  if (!IsProductKeyValid(selectedProductKey))
-                  {
-                      GiveChange();
-                      continue;
-                  }
-
-                  Product selectedProduct = GetProductById(selectedProductKey);
-
-                  if (selectedProduct.Stock == 0)
-                  {
-                      Console.WriteLine("The selected product is out of stock");
-                      continue;
-                  }
-
-                  if (!IsAmountEnoughForProduct(selectedProduct.Price))
-                  {
-                      Console.WriteLine("Not enough money for the selected product");
-                      Console.WriteLine("Please enter money or cancel the transaction");
-                      ReceiveMoney();
-
-                      continue;
-                  }
-                  PurchaseProduct(selectedProductKey);
-              }*/
+            Console.Read();            
         }
         private static void DisplayInventory ()
         {

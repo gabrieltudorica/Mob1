@@ -1,38 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VendingMachine
+namespace Bla
 {
     public class VendingMachine
     {
-        private List<Product> inventory = new List<Product>();
         public decimal UserAmount { get; private set; }
-        private ISMSGateway SMSGateway;
-        public VendingMachine(ISMSGateway SMSGateway)
+
+        private readonly List<Product> inventory = new List<Product>();
+
+        public VendingMachine(ISMSGateway smsGateway)
         {
             InitializeInventory();
         }
-        private void InitializeInventory()
-        {
-            string path = "inventory.txt";
-            string[] readInventory = File.ReadAllLines(path);
-           
-            for (int i = 1; i < readInventory.Length; i++)
-            {
-                string[] productData = readInventory[i].Split(',');
-                Product product = new Product(productData[3], productData[0]);
-                product.Price = Convert.ToDecimal(productData[1]);
-                product.Stock = Convert.ToInt32(productData[2]);
-                inventory.Add(product);
-            }
-        }
+
         public void AddMoney(decimal amount)
-        {       
-            UserAmount += amount;        
+        {
+            UserAmount += amount;
         }
 
         public decimal GiveChange()
@@ -42,7 +27,49 @@ namespace VendingMachine
             return change;
         }
 
-        private  Product GetProductById(string selectedProduct)
+        public string PurchaseProduct(string productKey)
+        {
+            Product selectedProduct = GetProductById(productKey);
+            string purchaseResult = GetPurchaseResult(selectedProduct);
+            if (purchaseResult != string.Empty)
+            {
+                return purchaseResult;
+            }
+            UserAmount -= selectedProduct.Price;
+
+            selectedProduct.Stock -= 1;
+
+            if (selectedProduct.Stock == 0)
+            {
+                //SendSMS("You are out of " + selectedProduct.Name);
+            }
+            return "The transaction is successful. Money left: " + UserAmount;
+        }
+
+        public List<Product> GetProducts()
+        {
+            return inventory;
+        }
+
+        private void InitializeInventory()
+        {
+            string path = "inventory.txt";
+            string[] readInventory = File.ReadAllLines(path);
+           
+            for (int i = 1; i < readInventory.Length; i++)
+            {
+                string[] productData = readInventory[i].Split(',');
+                Product product = new Product(productData[3], productData[0])
+                {
+                    Price = Convert.ToDecimal(productData[1]),
+                    Stock = Convert.ToInt32(productData[2])
+                };
+
+                inventory.Add(product);
+            }
+        }
+       
+        private Product GetProductById(string selectedProduct)
         {
             foreach (Product product in inventory)
             {
@@ -55,39 +82,7 @@ namespace VendingMachine
             return null;
         }
 
-        private  bool IsAmountEnoughForProduct(decimal productPrice)
-        {
-            if (productPrice > UserAmount)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public string PurchaseProduct(string productKey)
-        {           
-            Product selectedProduct = GetProductById(productKey);
-            string purchaseResult = GetPurchaseResult(selectedProduct);
-           if ( purchaseResult!= string.Empty)
-            {
-                return purchaseResult;
-            }
-            UserAmount -= selectedProduct.Price;
-
-            selectedProduct.Stock = selectedProduct.Stock - 1;
-            
-            if (selectedProduct.Stock == 0)
-            {
-                //SendSMS("You are out of " + selectedProduct.Name);
-            }
-            return "The transaction is successful. Money left: " + UserAmount;
-        }
-        public List<Product> GetProducts()
-        {
-            return inventory;
-        }
-        private string GetPurchaseResult (Product selectedProduct)
+        private string GetPurchaseResult(Product selectedProduct)
         {
             if (selectedProduct == null)
             {
@@ -106,5 +101,15 @@ namespace VendingMachine
 
             return string.Empty;
         }
+
+        private  bool IsAmountEnoughForProduct(decimal productPrice)
+        {
+            if (productPrice > UserAmount)
+            {
+                return false;
+            }
+
+            return true;
+        }               
     }
 }
