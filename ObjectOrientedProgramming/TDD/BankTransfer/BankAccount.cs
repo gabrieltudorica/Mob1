@@ -9,22 +9,41 @@ namespace BankTransfer
 {
     public class BankAccount
     {
-        public decimal Amount;
-        public string AccountNumber { get; set; }
+        public decimal Amount { get; private set; }
+        public string AccountNumber { get; private set; }
+
+        public List<string> Transactions;
 
         public BankAccount(string accountNumber)
         {
             AccountNumber = accountNumber;
+            Transactions = new List<string>();
         }
         
         public void AddMoney(decimal amount)
         {
+            if (amount <= 0)
+            {
+                throw new NegativeOrZeroAmountException();
+            }
+
             Amount += amount;
+            Transactions.Add(amount + " was added to your account");
+
         }
-        public void SendMoney(decimal amount, BankAccount bankAccount)
+        public string SendMoney(decimal amount, BankAccount bankAccount)
         {
-            Amount -= amount;
-            bankAccount.AddMoney(amount);
+            if (amount <= Amount)
+            {
+                bankAccount.AddMoney(amount);
+                Amount -= amount;
+
+                Transactions.Add(amount + " was taken from your account");
+
+                return "Your transaction is successful";
+            }
+
+            return "Your transaction was declined due to unsufficient funds";
         }
     }
 }
